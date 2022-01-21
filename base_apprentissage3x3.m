@@ -32,7 +32,7 @@ for k=1:1
     for j=1:n-taille_im
         for i=1:n-taille_im
             imagette = Im(i:i+taille_im-1,j:j+taille_im-1);
-            %imwrite(imagette,strcat('Data/imagettes_',m,'x',m,'/im',int2str(sub2ind([48,48],i,j)),'.png'),'png');
+            imwrite(imagette,strcat('Data/imagettes_',m,'x',m,'/im',int2str(sub2ind([48,48],i,j)),'.png'),'png');
         end
     end
 

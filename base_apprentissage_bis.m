@@ -37,7 +37,7 @@ for k=1:1
     for j=1:n-taille_im
         for i=1:n-taille_im
             imagette = Im(i:i+taille_im-1,j:j+taille_im-1);
-            imwrite(imagette,strcat('Data/val_data/imagettes_',m,'x',m,'/im',int2str(sub2ind([n-taille_im,n-taille_im],i,j)),'.png'),'png');
+            imwrite(imagette,strcat('Data/val_data/imagettes_9x9/im',int2str(sub2ind([n-taille_im,n-taille_im],i,j)),'.png'),'png');
         end
     end
 
@@ -48,4 +48,4 @@ for k=1:1
     normals = reshape(normals,[(n-taille_im)*(n-taille_im) 3]);
 end
 
-save('Data/val_data/imagettes_',m,'x',m,'/normals.mat','normals');
+save('Data/val_data/imagettes_9x9/normals.mat','normals');
