@@ -2,11 +2,17 @@ clear all;
 close all;
 
 n = 51;
-taille_im = 3;
+taille_im = 9;
+
+x = linspace();
+y = x;
+[X,Y] = meshgrid(x,y);
+% Z =  3*(1-X).^2.*exp(-(X.^2) - (Y+1).^2) - 10*(X/5 - X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 1/3*exp(-(X+1).^2 - Y.^2);
+% Z = 4*(1-X).^3.*exp(-(X.^2) - (Y+3).^3) - 5*(X./7 - X.^2 - Y.^4).*exp(-X.^3-Y.^2) - 1/4*exp(-(X+2).^2 - Y.^3);
 
 for k=1:1
     figure;
-    [X,Y,Z] = peaks(n);
+    %[X,Y,Z] = peaks(n);
     A = surf(X,Y,Z);
     colormap('gray');
 %     c = colorbar;
@@ -19,9 +25,8 @@ for k=1:1
 %     imshow(Im);
     
     % Récupération des normales
-    normals = reshape(A.FaceNormals,[(n-1)*(n-1) 3]);
-    normals = normals./sqrt(sum(normals.^2,2));
-    normals = reshape(normals,[n-1 n-1 3]);
+    normals = A.FaceNormals;
+    normals = normals./sqrt(sum(normals.^2,3));
     % Image en fonction des normales
     Im = uint8(normals(:,:,3)*255);
     figure;

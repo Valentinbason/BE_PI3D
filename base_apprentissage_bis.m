@@ -2,11 +2,17 @@ clear all;
 close all;
 
 n = 51;
-taille_im = 3;
+taille_im = 9;
+
+x = linspace(-3,3,n);
+y = x;
+[X,Y] = meshgrid(x,y);
+%Z = 3*(1-X).^2.*exp(-(X.^2) - (Y+1).^2) - 10*(X/5 - X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 1/3*exp(-(X+1).^2 - Y.^2);
+Z = 4*(10-X).^2.*exp(-(X.^2) - (Y-5).^2) - 5*(X./7 - X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 1/4*exp(-(X-7).^2 - Y.^2);
 
 for k=1:1
     figure;
-    [X,Y,Z] = peaks(n);
+    %[X,Y,Z] = peaks(n);
     A = surf(X,Y,Z);
     colormap('gray');
 %     c = colorbar;
@@ -19,9 +25,8 @@ for k=1:1
 %     imshow(Im);
     
     % Récupération des normales
-    normals = reshape(A.FaceNormals,[(n-1)*(n-1) 3]);
-    normals = normals./sqrt(sum(normals.^2,2));
-    normals = reshape(normals,[n-1 n-1 3]);
+    normals = A.FaceNormals;
+    normals = normals./sqrt(sum(normals.^2,3));
     % Image en fonction des normales
     Im = uint8(normals(:,:,3)*255);
     figure;
@@ -32,7 +37,7 @@ for k=1:1
     for j=1:n-taille_im
         for i=1:n-taille_im
             imagette = Im(i:i+taille_im-1,j:j+taille_im-1);
-            %imwrite(imagette,strcat('Data/imagettes_',m,'x',m,'/im',int2str(sub2ind([48,48],i,j)),'.png'),'png');
+            imwrite(imagette,strcat('Data/val_data/imagettes_',m,'x',m,'/im',int2str(sub2ind([n-taille_im,n-taille_im],i,j)),'.png'),'png');
         end
     end
 
@@ -43,4 +48,4 @@ for k=1:1
     normals = reshape(normals,[(n-taille_im)*(n-taille_im) 3]);
 end
 
-%save('Data/imagettes_',m,'x',m,'/normals.mat','normals');
+save('Data/val_data/imagettes_',m,'x',m,'/normals.mat','normals');
