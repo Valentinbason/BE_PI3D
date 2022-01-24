@@ -26,11 +26,12 @@ Im = uint8(normals(:,:,3)*255);
 figure;
 imshow(Im);
 
-% Récuperation des imagettes
-m = int2str(taille_im);
+% Récupération des imagettes
+normales = zeros((n-taille_im)^2,3);
 for j=1:n-taille_im
     for i=1:n-taille_im
         imagette = Im(i:i+taille_im-1,j:j+taille_im-1);
+        %normales(sub2ind([n-taille_im n-taille_im],i,j),:) = normals(i+ceil(taille_im/2),j+ceil(taille_im/2),:);
         imwrite(imagette,strcat('Data/train_data/imagettes_9x9_100/im',int2str(sub2ind([n-taille_im,n-taille_im],i,j)),'.png'),'png');
     end
 end

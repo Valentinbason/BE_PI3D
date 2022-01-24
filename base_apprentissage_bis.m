@@ -8,7 +8,7 @@ x = linspace(-3,3,n);
 y = x;
 [X,Y] = meshgrid(x,y);
 %Z = 3*(1-X).^2.*exp(-(X.^2) - (Y+1).^2) - 10*(X/5 - X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 1/3*exp(-(X+1).^2 - Y.^2);
-Z = 4*(10-X).^2.*exp(-(X.^2) - (Y-5).^2) - 5*(X./7 - X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 1/4*exp(-(X-7).^2 - Y.^2);
+Z = 4*(3-X).^2.*exp(-(X.^2) - (Y./5-5).^2) - 5*(X./2 + X.^3 - Y.^5).*exp(-X.^2-Y.^2) - 8*exp(-(X-6).^2 - Y.^2);
 %[X,Y,Z] = peaks(n);
 
 figure;
@@ -33,19 +33,20 @@ figure;
 imshow(Im);
 
 % Récuperation des imagettes
-m = int2str(taille_im);
-for j=1:n-taille_im
-    for i=1:n-taille_im
+k = 7201;
+for j=17:76
+    for i=17:76
         imagette = Im(i:i+taille_im-1,j:j+taille_im-1);
-        imwrite(imagette,strcat('Data/val_data/imagettes_9x9_100/im',int2str(sub2ind([n-taille_im,n-taille_im],i,j)),'.png'),'png');
+        imwrite(imagette,strcat('Data/train_data/imagettes_9x9_100_bis/im',int2str(k),'.png'),'png');
+        k = k+1;
     end
 end
 
 % Supression des normales inutiles
-ind = [1:(taille_im-1)/2 n-(taille_im-1)/2:n-1];
+%ind = [1:(taille_im-1)/2 n-(taille_im-1)/2:n-1];
+ind = [1:20 81:100];
 normals(ind,:,:) = [];
 normals(:,ind,:) = [];
-normals = reshape(normals,[(n-taille_im)*(n-taille_im) 3]);
+normals = reshape(normals,[60*60 3]);
 
-
-save('Data/val_data/imagettes_9x9_100/normals.mat','normals');
+save('Data/train_data/imagettes_9x9_100_bis/normals3.mat','normals');
